@@ -35,7 +35,7 @@ namespace API.Controllers
             return Ok(await Mediator.Send(new Edit.Command{University = university}));
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUniversity(Guid id){
             return  Ok(await Mediator.Send(new Delete.Command{Id = id}));
         }

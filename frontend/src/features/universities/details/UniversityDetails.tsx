@@ -1,14 +1,17 @@
 import React from 'react'
 import { Button, Card,  Image } from 'semantic-ui-react'
 import { University } from '../../../app/models/university'
+import { useStore } from '../../../app/stores/store';
+import LoadingComponent from '../../../app/layout/LoadingComponent';
 
-interface Props{
-    university: University;
-    cancelSelectUniversity:() => void;
-    openForm :(id: string) => void;
-}
 
-export default function CardExampleCard ({university,  cancelSelectUniversity, openForm}: Props) {
+export default function CardExampleCard () {
+
+  const {universityStore}= useStore();
+  const {selectedUniversity: university, cancelSelectedUniversity, openForm}= universityStore;
+
+  if(!university) return<LoadingComponent />;
+
     return(
   <Card>
     <Image src= {`/assets/universityImages/${university.name}.png`} />
@@ -27,7 +30,7 @@ export default function CardExampleCard ({university,  cancelSelectUniversity, o
     <Card.Content extra>
       <Button.Group width='2'>
         <Button onClick={() => openForm(university.id)} basic color='blue' content='Edit'/>
-        <Button onClick={cancelSelectUniversity} basic color='grey' content='Cancel'/>
+        <Button onClick={cancelSelectedUniversity} basic color='grey' content='Cancel'/>
       </Button.Group>
     </Card.Content>
   </Card>

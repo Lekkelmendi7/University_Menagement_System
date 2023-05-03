@@ -1,17 +1,13 @@
 import React, { SyntheticEvent, useState } from 'react';
 import { Button, Item, ItemDescription, Segment } from 'semantic-ui-react';
 import { University } from '../../../app/models/university';
+import { useStore } from '../../../app/stores/store';
+import { observer } from 'mobx-react-lite';
 
-
-interface Props{
-    universities:  University[];
-    selectUniversity: (id: string) => void;
-    deleteUniversity: (id: string) => void;
-    submitting: boolean;
-}
-
-export default function UniversityList({universities, selectUniversity, deleteUniversity, submitting}: Props){
+export default observer(function UniversityList(){
   
+    const {universityStore}= useStore();
+    const {deleteUniversity, universitiesByDate, loading}=universityStore;
     const [target, setTarget]=useState('');
 
     function handleDeleteUniversity(e: SyntheticEvent<HTMLButtonElement>, id: string){
@@ -19,12 +15,11 @@ export default function UniversityList({universities, selectUniversity, deleteUn
         deleteUniversity(id);
     }
 
-
     return(
       
         <Segment>
             <Item.Group divided>
-                {universities.map(university => (
+                {universitiesByDate.map(university => (
                     <Item key ={university.id}>
                         <Item.Content>
                             <Item.Header as ='a'>{university.name}</Item.Header>
@@ -34,10 +29,10 @@ export default function UniversityList({universities, selectUniversity, deleteUn
                                 <div>{university.phoneNumber}</div>
                             </ItemDescription>
                             <Item.Extra>
-                                <Button onClick={() => selectUniversity(university.id)} floated='right' content='View' color='blue'/>
+                                <Button onClick={() => universityStore.selectUniversity(university.id)} floated='right' content='View' color='blue'/>
                                 <Button 
                                 name={university.id}
-                                loading={submitting && target === university.id}
+                                loading={loading && target === university.id}
                                 onClick={(e) => handleDeleteUniversity(e, university.id)} 
                                 floated='right' 
                                 content='Delete' 
@@ -50,4 +45,4 @@ export default function UniversityList({universities, selectUniversity, deleteUn
             </Item.Group>
         </Segment>
     )
-}
+})
