@@ -6,10 +6,10 @@ import {v4 as uuid} from 'uuid';
 export default class UniversityStore
 {
     universityRegistry = new Map<string, University>();
-    selectedUniversity: University | undefined = undefined;
+    selectedUniversity?: University | undefined = undefined;
     editMode = false;
     loading = false;
-    loadingInitial= true;
+    loadingInitial= false;
     
     constructor (){
     makeAutoObservable(this)
@@ -21,41 +21,55 @@ export default class UniversityStore
     }
 
     loadUniversities = async () => {
-
+        this.setLoadingInitial(true);
         try{
             const universities = await agent.Universities.list();
                 universities.forEach(university =>{
-                    university.date = university.date.split('T')[0];
-                    this.universityRegistry.set(university.id, university);
+                    this.setUniversity(university);
                   })
-            this.setLoadingInitial(false)
+            this.setLoadingInitial(false);
         }catch(error){
             console.log(error);
-                this.setLoadingInitial(false)
+                this.setLoadingInitial(false);
             }
         }
-    
+
+        loadUniversity = async (id: string) => {
+            let university = this.getUniversity(id);
+            if(university) {
+                this.selectedUniversity=university;
+                return university;
+            }
+            else{
+                this.setLoadingInitial(true);
+                try{
+                    university = await agent.Universities.details(id);
+                    this.setUniversity(university);
+                    runInAction(() => this.selectedUniversity=university)
+                    this.setLoadingInitial(false);
+                    return university;
+                }catch(error){
+                    console.log(error);
+                    this.setLoadingInitial(false);
+                }
+            }
+        }
+
+        private setUniversity =(university: University) => {
+            university.date = university.date.split('T')[0];
+            this.universityRegistry.set(university.id, university);
+        }
+
+
+        private getUniversity = (id: string) => {
+            return this.universityRegistry.get(id);
+        }
+
 
     setLoadingInitial = (state: boolean) =>{
         this.loadingInitial=state;
     }
 
-    selectUniversity = (id: string) => {
-        this.selectedUniversity = this.universityRegistry.get(id);;
-    }
-
-    cancelSelectedUniversity = () => {
-        this.selectedUniversity= undefined;
-    }
-
-    openForm = (id?: string) => {
-        id ? this.selectUniversity(id) : this.cancelSelectedUniversity() ;
-        this.editMode= true;
-    }
-
-    closeForm = () => {
-        this.editMode= false;
-    }
 
     createUniversity = async (university: University) => {
         this.loading=true;
@@ -100,7 +114,6 @@ export default class UniversityStore
             await agent.Universities.delete(id);
             runInAction(() => {
                 this.universityRegistry.delete(id);
-            if (this.selectedUniversity?.id=== id) this.cancelSelectedUniversity();
             this.loading=false;
             })
         }catch(error){

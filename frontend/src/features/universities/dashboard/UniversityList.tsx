@@ -3,6 +3,7 @@ import { Button, Item, ItemDescription, Segment } from 'semantic-ui-react';
 import { University } from '../../../app/models/university';
 import { useStore } from '../../../app/stores/store';
 import { observer } from 'mobx-react-lite';
+import { Link } from 'react-router-dom';
 
 export default observer(function UniversityList(){
   
@@ -29,14 +30,18 @@ export default observer(function UniversityList(){
                                 <div>{university.phoneNumber}</div>
                             </ItemDescription>
                             <Item.Extra>
-                                <Button onClick={() => universityStore.selectUniversity(university.id)} floated='right' content='View' color='blue'/>
+                                <Button as={Link} to={`/universities/${university.id}`} 
+                                floated='right' 
+                                content='View' 
+                                color='blue'
+                                />
                                 <Button 
-                                name={university.id}
                                 loading={loading && target === university.id}
-                                onClick={(e) => handleDeleteUniversity(e, university.id)} 
+                                name={university.id}
                                 floated='right' 
                                 content='Delete' 
-                                color='red'/>
+                                color='red'
+                                onClick={(e) => handleDeleteUniversity(e, university.id)} />
                             </Item.Extra>
                         </Item.Content>
                     </Item>

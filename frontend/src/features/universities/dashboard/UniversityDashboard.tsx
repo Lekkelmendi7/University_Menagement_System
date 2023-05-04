@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Grid } from 'semantic-ui-react';
 import UniversityList from './UniversityList';
-import UniversityDetails from '../details/UniversityDetails';
-import UniversityForm from '../form/UniversityForm';
 import { useStore } from '../../../app/stores/store';
 import { observer } from 'mobx-react-lite';
+import LoadingComponent from '../../../app/layout/LoadingComponent';
+import { NavLink } from 'react-router-dom';
+import UniversityStore from '../../../app/stores/universityStore';
 
 
 
@@ -12,21 +13,26 @@ import { observer } from 'mobx-react-lite';
 
 export default observer(function UniversityDashboard(){
   const {universityStore}= useStore();
-  const {selectedUniversity, editMode} = universityStore;
+  const {loadUniversities, universityRegistry}= universityStore;
+
+
+
+  useEffect(() => {
+    if(universityRegistry.size <=1 ) loadUniversities();
+  }, [loadUniversities])
+
+
+
+
+
+  if(universityStore.loadingInitial) return <LoadingComponent content='Loading App...'/>
   return (
     <Grid>
         <Grid.Column width='10'>
-         <UniversityList
-        />
+         <UniversityList/>
         </Grid.Column>
         <Grid.Column width='5'>
-         {selectedUniversity && !editMode &&
-          <UniversityDetails 
-         
-         />}
-           {editMode &&
-          <UniversityForm
-           /> }
+         <h2>University filters</h2>
         </Grid.Column>
         </Grid>
   )

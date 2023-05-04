@@ -1,16 +1,23 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button, Card,  Image } from 'semantic-ui-react'
 import { University } from '../../../app/models/university'
 import { useStore } from '../../../app/stores/store';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
+import { Link, useParams } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
 
 
-export default function CardExampleCard () {
+export default observer(function UniversityDetails () {
 
   const {universityStore}= useStore();
-  const {selectedUniversity: university, cancelSelectedUniversity, openForm}= universityStore;
+  const {selectedUniversity: university, loadUniversity, loadingInitial}= universityStore;
+  const {id} = useParams();
 
-  if(!university) return<LoadingComponent />;
+  useEffect(() => {
+    if (id) loadUniversity(id);
+   }, [id, loadUniversity])
+
+  if(loadingInitial || !university) return<LoadingComponent />;
 
     return(
   <Card>
@@ -29,10 +36,10 @@ export default function CardExampleCard () {
     </Card.Content>
     <Card.Content extra>
       <Button.Group width='2'>
-        <Button onClick={() => openForm(university.id)} basic color='blue' content='Edit'/>
-        <Button onClick={cancelSelectedUniversity} basic color='grey' content='Cancel'/>
+        <Button as={Link} to={`/manage/${university.id}`} basic color='blue' content='Edit'/>
+        <Button as={Link} to='/universities' basic color='grey' content='Cancel'/>
       </Button.Group>
     </Card.Content>
   </Card>
     )
-}
+}) 
