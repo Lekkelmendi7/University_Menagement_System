@@ -15,6 +15,7 @@ export default function NavBar(){
                     University Menagement System
                 </Menu.Item>
                 <Menu.Item as={NavLink} to='/universities' name='Universities'/>
+                <Menu.Item as={NavLink} to='/errors' name='Errors'/>
                 <Menu.Item >
                 <Button as={NavLink} to='/createUniversity' positive content='Add University'/>
                 </Menu.Item>

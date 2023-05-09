@@ -20,6 +20,7 @@ export default class UniversityStore
         Date.parse(a.date) - Date.parse(b.date));
     }
 
+
     loadUniversities = async () => {
         this.setLoadingInitial(true);
         try{
