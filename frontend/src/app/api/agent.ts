@@ -12,6 +12,8 @@ const sleep = (delay: number) => {
 
 axios.defaults.baseURL= 'http://localhost:5000/api';
 
+const responseBody = <T>(response: AxiosResponse<T>) => response.data;
+
 axios.interceptors.response.use(async response => {
 
         await sleep(1000);
@@ -20,10 +22,12 @@ axios.interceptors.response.use(async response => {
     const {data, status, config} = error.response as AxiosResponse;
     switch(status){
         case 400:
-            if (config.method === 'get' && data.errors.hasOwnProperty('id')) {
+            console.log(data);
+             if (!data.errors) toast.error(data);
+            else if(config.method === 'get' && data.errors.hasOwnProperty('id')) {
                 router.navigate('/not-found');
-            }
-            if (data.errors) {
+                break;
+            }else if (data.errors) {
                 const modalStateErrors = [];
                 for (const key in data.errors) {
                     if (data.errors[key]) {
@@ -39,7 +43,7 @@ axios.interceptors.response.use(async response => {
             toast.error('unauthorised')
             break;
         case 403:
-            toast.error('Forbidden');
+            toast.error('forbidden');
             break;
         case 404:
             router.navigate('/not-found');
@@ -49,10 +53,10 @@ axios.interceptors.response.use(async response => {
             router.navigate('/server-error');
             break;
     }
-    return Promise.reject(Error);
+    return Promise.reject(error);
 })
 
-const responseBody = <T> (response: AxiosResponse<T>) => response.data;
+
 
 const requests = {
     get: <T>(url:string) => axios.get<T>(url).then(responseBody),

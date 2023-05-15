@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Grid } from 'semantic-ui-react';
+import { Button, Grid } from 'semantic-ui-react';
 import UniversityList from './UniversityList';
 import { useStore } from '../../../app/stores/store';
 import { observer } from 'mobx-react-lite';
@@ -19,7 +19,7 @@ export default observer(function UniversityDashboard(){
 
   useEffect(() => {
     if(universityRegistry.size <=1 ) loadUniversities();
-  }, [loadUniversities])
+  }, [universityRegistry.size, ,loadUniversities])
 
 
 
@@ -28,12 +28,15 @@ export default observer(function UniversityDashboard(){
   if(universityStore.loadingInitial) return <LoadingComponent content='Loading App...'/>
   return (
     <Grid>
-        <Grid.Column width='10'>
-         <UniversityList/>
-        </Grid.Column>
-        <Grid.Column width='5'>
-         <h2>University filters</h2>
-        </Grid.Column>
-        </Grid>
+    <Grid.Column width='10'>
+    <Button  style={{marginLeft:1200}} 
+        as={NavLink}
+        to="/addUniversity"
+        positive
+        content="Add University"
+    />
+    <UniversityList/>
+    </Grid.Column>
+</Grid>
   )
 })

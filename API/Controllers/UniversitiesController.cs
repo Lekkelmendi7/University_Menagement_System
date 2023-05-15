@@ -12,13 +12,13 @@ namespace API.Controllers
 
   
         [HttpGet]
-        public async Task<ActionResult<List<University>>> GetUniversities(CancellationToken ct)
+        public async Task<ActionResult<List<University>>> GetUniversities()
         {
-            return HandleResult(await Mediator.Send(new List.Query(), ct));
+            return HandleResult(await Mediator.Send(new List.Query()));
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetUniversity(Guid id)
+        public async Task<ActionResult<University>> GetUniversity(Guid id)
         {
             return HandleResult(await Mediator.Send(new Details.Query{Id = id}));
         }

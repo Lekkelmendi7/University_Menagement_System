@@ -19,9 +19,9 @@ export const routes: RouteObject[]= [
             {path: 'createUniversity', element:<UniversityForm key='create' />},
             {path: 'manage/:id', element:<UniversityForm key='manage'/>},
             {path: 'errors', element:<TestErrors/>},
-            {path: 'not found', element:<NotFound/>},
+            {path: 'not-found', element:<NotFound/>},
             {path: 'server-error', element: <ServerError />},
-            {path: '*', element:<Navigate replace to ='not found'/>},
+            {path: '*', element:<Navigate replace to ='/not-found'/>},
         ]
 
     }

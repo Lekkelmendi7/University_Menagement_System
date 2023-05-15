@@ -1,15 +1,9 @@
 using API.Extensions;
-using Application.Core;
-using Application.Universities;
-using MediatR;
+using API.Middleware;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
 
-internal class Program
-{
-    private static async Task Main(string[] args)
-    {
         var builder = WebApplication.CreateBuilder(args);
          builder.Services.AddControllers();
 
@@ -18,6 +12,8 @@ internal class Program
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
+        app.UseMiddleware<ExceptionMiddleware>();
+
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
@@ -46,5 +42,3 @@ internal class Program
         }
 
         app.Run();
-    }
-}

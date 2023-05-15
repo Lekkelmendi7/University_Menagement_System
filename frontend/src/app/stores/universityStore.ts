@@ -2,6 +2,7 @@ import { makeAutoObservable, runInAction } from "mobx";
 import { University } from "../models/university";
 import agent from "../api/agent";
 import {v4 as uuid} from 'uuid';
+import {format} from 'date-fns';
 
 export default class UniversityStore
 {
@@ -17,12 +18,22 @@ export default class UniversityStore
 
     get universitiesByDate(){
         return Array.from(this.universityRegistry.values()).sort((a,b) => 
-        Date.parse(a.date) - Date.parse(b.date));
+        a.date!.getTime() - b.date!.getTime());
+    }
+
+    get groupedUniversities() {
+        return Object.entries(
+            this.universitiesByDate.reduce((universities, university) => {
+                const date = format(university.date!, 'dd MMM yyyy');
+                universities[date] = universities[date] ? [...universities[date], university] : [university];
+                return universities;
+            }, {} as {[key: string]: University[]})
+        )
     }
 
 
     loadUniversities = async () => {
-        this.setLoadingInitial(true);
+        this.loadingInitial= true;
         try{
             const universities = await agent.Universities.list();
                 universities.forEach(university =>{
@@ -42,7 +53,7 @@ export default class UniversityStore
                 return university;
             }
             else{
-                this.setLoadingInitial(true);
+                this.loadingInitial =true;
                 try{
                     university = await agent.Universities.details(id);
                     this.setUniversity(university);
@@ -57,7 +68,7 @@ export default class UniversityStore
         }
 
         private setUniversity =(university: University) => {
-            university.date = university.date.split('T')[0];
+            university.date = new Date(university.date!);
             this.universityRegistry.set(university.id, university);
         }
 
@@ -74,7 +85,6 @@ export default class UniversityStore
 
     createUniversity = async (university: University) => {
         this.loading=true;
-        university.id= uuid();
         try{
             await agent.Universities.create(university);
             runInAction(() => {
