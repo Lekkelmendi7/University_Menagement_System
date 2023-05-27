@@ -1,11 +1,27 @@
 using Domain;
+using Microsoft.AspNetCore.Identity;
 
 namespace Persistence
 {
     public class Seed
     {
-         public static async Task SeedData(DataContext context)
+         public static async Task SeedData(DataContext context, UserManager<AppUser> userManager)
         {
+            if(!userManager.Users.Any())
+            {
+                var users = new List<AppUser>
+                {
+                    new AppUser{DisplayName= "Leke Kelmendi", UserName= "leka", Email="lek.kelmendi@gmail.com"},
+                    new AppUser{DisplayName= "Blerim Zylfiu", UserName= "blerimi", Email="blerim.zylfiu@gmail.com"},
+                    new AppUser{DisplayName= "Lavdim Menxhiqi", UserName= "lavdaaa", Email="lavdim.menxhiqi@gmail.com"},
+                };
+
+                foreach (var user in users)
+                {
+                    await userManager.CreateAsync(user,"Pa$$w0rd");
+                }
+            }
+
             if (context.Universities.Any()) return;
             
             var universities = new List<University>
@@ -70,6 +86,24 @@ namespace Persistence
             };
 
             await context.Universities.AddRangeAsync(universities);
+
+
+             if (context.Departments.Any()) return;
+            
+            var departments = new List<Department>
+            {
+                new Department
+                {
+                    Name = "Fakullteti i Inxhinierise Elektrike dhe Elektronike",
+                    Email = "up@gmai.com",
+                    PhoneNumber = "+383 44 555 777",
+                    City = "Prishtine",
+                    PostalCode = 10000,
+                    Street = "Bregu i Diellit",
+                    
+                },
+    
+            };
             await context.SaveChangesAsync();
     }
     }

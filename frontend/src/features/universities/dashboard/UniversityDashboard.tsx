@@ -19,13 +19,13 @@ export default observer(function UniversityDashboard(){
 
   useEffect(() => {
     if(universityRegistry.size <=1 ) loadUniversities();
-  }, [universityRegistry.size, ,loadUniversities])
+  }, [loadUniversities, universityRegistry.size])
 
 
 
 
 
-  if(universityStore.loadingInitial) return <LoadingComponent content='Loading App...'/>
+  if(universityStore.loadingInitial) return <LoadingComponent content='Loading Universities...'/>
   return (
     <Grid>
     <Grid.Column width='10'>

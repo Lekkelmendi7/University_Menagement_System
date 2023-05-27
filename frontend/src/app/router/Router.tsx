@@ -7,6 +7,8 @@ import UniversityDetails from "../../features/universities/details/UniversityDet
 import TestErrors from "../../features/errors/TestErrors";
 import NotFound from "../../features/errors/NotFound";
 import ServerError from "../../features/errors/ServerError";
+import LoginForm from "../../features/users/LoginForm";
+import RegisterForm from "../../features/users/RegisterForm";
 
 
 export const routes: RouteObject[]= [
@@ -18,10 +20,14 @@ export const routes: RouteObject[]= [
             {path: 'universities/:id', element:<UniversityDetails />},
             {path: 'createUniversity', element:<UniversityForm key='create' />},
             {path: 'manage/:id', element:<UniversityForm key='manage'/>},
+            {path: 'login', element:<LoginForm/>},
             {path: 'errors', element:<TestErrors/>},
             {path: 'not-found', element:<NotFound/>},
             {path: 'server-error', element: <ServerError />},
             {path: '*', element:<Navigate replace to ='/not-found'/>},
+            {path: 'homepage', element:<HomePage />},
+            {path: 'login', element:<LoginForm />},
+            {path: 'register', element:<RegisterForm />},
         ]
 
     }

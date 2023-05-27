@@ -1,9 +1,11 @@
 using Domain;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace Persistence
 {
-    public class DataContext : DbContext
+    public class DataContext : IdentityDbContext<AppUser>
     {
         
 
@@ -13,5 +15,6 @@ namespace Persistence
         }
 
         public DbSet<University> Universities {get; set;}
+        public DbSet<Department> Departments {get; set;}
     }
 }
