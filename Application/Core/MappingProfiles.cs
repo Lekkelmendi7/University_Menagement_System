@@ -8,6 +8,7 @@ namespace Application.Core
         public MappingProfiles()
         {
             CreateMap<University, University>();
+            CreateMap<Faculty, Faculty>();
         }
     }
 }

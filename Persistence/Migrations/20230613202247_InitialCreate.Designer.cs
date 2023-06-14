@@ -12,8 +12,8 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230527202211_Departments")]
-    partial class Departments
+    [Migration("20230613202247_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -96,7 +96,7 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Department", b =>
+            modelBuilder.Entity("Domain.Faculty", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -114,8 +114,8 @@ namespace Persistence.Migrations
                     b.Property<string>("PhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PostalCode")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PostalCode")
+                        .HasColumnType("int");
 
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
@@ -127,7 +127,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("UniversityId");
 
-                    b.ToTable("Department");
+                    b.ToTable("Faculties");
                 });
 
             modelBuilder.Entity("Domain.University", b =>
@@ -286,10 +286,10 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Department", b =>
+            modelBuilder.Entity("Domain.Faculty", b =>
                 {
                     b.HasOne("Domain.University", "University")
-                        .WithMany("Departments")
+                        .WithMany("Faculties")
                         .HasForeignKey("UniversityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -350,7 +350,7 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.University", b =>
                 {
-                    b.Navigation("Departments");
+                    b.Navigation("Faculties");
                 });
 #pragma warning restore 612, 618
         }

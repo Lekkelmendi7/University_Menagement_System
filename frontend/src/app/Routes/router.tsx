@@ -9,6 +9,9 @@ import NotFound from "../../features/errors/NotFound";
 import ServerError from "../../features/errors/ServerError";
 import LoginForm from "../../features/users/LoginForm";
 import RegisterForm from "../../features/users/RegisterForm";
+import FacultyForm from "../../features/faculties/form/FacultyForm";
+import FacultyDashboard from "../../features/faculties/dashboard/FacultyDashboard";
+import FacultyDetails from "../../features/faculties/details/FacultyDetails";
 
 
 export const routes: RouteObject[]= [
@@ -20,7 +23,6 @@ export const routes: RouteObject[]= [
             {path: 'universities/:id', element:<UniversityDetails />},
             {path: 'createUniversity', element:<UniversityForm key='create' />},
             {path: 'manage/:id', element:<UniversityForm key='manage'/>},
-            {path: 'login', element:<LoginForm/>},
             {path: 'errors', element:<TestErrors/>},
             {path: 'not-found', element:<NotFound/>},
             {path: 'server-error', element: <ServerError />},
@@ -28,6 +30,10 @@ export const routes: RouteObject[]= [
             {path: 'homepage', element:<HomePage />},
             {path: 'login', element:<LoginForm />},
             {path: 'register', element:<RegisterForm />},
+            {path: 'faculties', element:<FacultyDashboard/>},
+            {path: 'faculties/:id', element:<FacultyDetails/>},
+            {path: 'createFaculty', element:<FacultyForm key="create"/>},
+            {path: 'manageFaculty/:id', element:<FacultyForm key="manage"/>}
         ]
 
     }
