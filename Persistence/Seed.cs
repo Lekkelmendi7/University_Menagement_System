@@ -174,7 +174,64 @@ namespace Persistence
             };
             await context.Faculties.AddRangeAsync(faculties);
 
-            await context.SaveChangesAsync();
+
+            if (context.Subjects.Any()) return;
+
+            var subjects = new List<Subject>
+            {
+                new Subject
+                {
+                    Name = "Lende Laboratorike 1",
+                    Category = "Obligative",
+                    ECTS = 5
+                },
+                new Subject
+                {
+                    Name = "Inxhinieri e Sistemeve Kompjuterike",
+                    Category = "Obligative",
+                    ECTS = 4
+                },
+                 new Subject
+                {
+                    Name = "Fillet e se drejtes",
+                    Category = "Obligative",
+                    ECTS = 6
+                },
+                 new Subject
+                {
+                    Name = "Programimi ne Lojera",
+                    Category = "Zgjedhore",
+                    ECTS = 5
+                },
+                 new Subject
+                {
+                    Name = "Anatomija",
+                    Category = "Obligative",
+                    ECTS = 6
+                },
+                new Subject
+                {
+                    Name = "Rrjeta Kompjuterike dhe Komunikimi",
+                    Category = "Obligative",
+                    ECTS = 5
+                },
+                 new Subject
+                {
+                    Name = "Ekonomija dhe Ndermarresija",
+                    Category = "Obligative",
+                    ECTS = 6
+                },
+                 new Subject
+                {
+                    Name = "Sistemet Transmetuese",
+                    Category = "Obligative",
+                    ECTS = 6
+                }
+
+            };
+
+            await context.Subjects.AddRangeAsync(subjects);
+
         }
     }
 }

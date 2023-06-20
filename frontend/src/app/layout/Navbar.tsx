@@ -21,10 +21,21 @@ export default observer(function Navbar() {
         <img src="/assets/logo.png" alt="logo" style={{marginRight: '10px'}}/>
         University Menagement System
         </Menu.Item>
-        <Menu.Item as={NavLink} to="/universities" name='Universities'/>
-        <Menu.Item as={NavLink} to="/errors" name='Errors'/>
-        <Menu.Item >
-        <Button as={NavLink} to="/createUniversity" positive content='Add University'/>
+        <Menu.Item>
+        <Dropdown pointing='top left' text='Go to'  style={{width: '70px'}}>
+          <DropdownMenu>
+            <Dropdown.Item as={Link} to={'/universities'} text='Universities' icon='university' />
+            <Dropdown.Item as={Link} to={'/faculties'} text='Faculties' icon='building' />
+            <Dropdown.Item as={Link} to={'/subjects'} text='Subjects' icon='book' />
+            <Dropdown.Item as={Link} to={'/enrollments'} text='Enrollment' icon='' />
+            <Dropdown.Item as={Link} to={'/studyhalls'} text='Study Halls' icon='' />
+            <Dropdown.Item as={Link} to={'/activities'} text='Activities' icon='' />
+            <Dropdown.Item as={Link} to={'/exams'} text='Exams' icon='' />
+            <Dropdown.Item as={Link} to={'/grades'} text='Grades' icon='' />
+            <Dropdown.Item as={Link} to={'/contact'} text='Contact Us' icon='' />
+            <Dropdown.Item as={Link} to={'/errors'} text='Errors' icon='bug' />
+          </DropdownMenu>
+        </Dropdown>
         </Menu.Item>
         <MenuItem position='right'>
           <Image src={user?.image || '/assets/user.png'} />

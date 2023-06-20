@@ -5,6 +5,7 @@ import { store } from '../stores/store';
 import { User, UserFormValues } from '../models/user';
 import { Faculty } from '../models/faculty';
 import { router } from '../Routes/router';
+import { Subject } from '../models/subject';
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -80,24 +81,34 @@ const Universities = {
     delete: (id: string) => axios.delete<void>(`/universities/${id}`)
 }
 
+const Faculties = {
+    list: () => requests.get<Faculty[]>('/faculties'),
+    details: (id: string) => requests.get<Faculty>(`/faculties/${id}`),
+    create: (faculty: Faculty) => axios.post<void>('/faculties', faculty),
+    update: (faculty: Faculty) => axios.put<void>(`/faculties/${faculty.id}`, faculty),
+    delete: (id: string) => axios.delete<void>(`/faculties/${id}`)
+}
+
+const Subjects = {
+    list: () => requests.get<Subject[]>('/subjects'),
+    details: (id: string) => requests.get<Subject>(`/subjects/${id}`),
+    create: (subject: Subject) => axios.post<void>('/subjects', subject),
+    update: (subject: Subject) => axios.put<void>(`/subjects/${subject.id}`, subject),
+    delete: (id: string) => axios.delete<void>(`/subjects/${id}`)
+} 
+
 const Account = {
     current: (): Promise<User> => requests.get('/account'),
     login: (user: UserFormValues): Promise<User> => requests.post('/account/login', user),
     register: (user: UserFormValues): Promise<User> => requests.post('/account/register', user)
 }
 
-const Faculties = {
-    list: () => requests.get<Faculty[]>('/Faculties'),
-    details: (id: string) => requests.get<Faculty>(`Faculties?=/${id}`),
-    create: (faculty: Faculty) => requests.post<void>('/Faculties', faculty),
-    update: (faculty: Faculty) => requests.put<void>(`Faculties?id=${faculty.id}`, faculty),
-    delete: (id: string) => requests.delete<void>(`Faculties?id=${id}`)
-}
 
 const agent = {
     Universities,
     Account,
     Faculties,
+    Subjects
 }
 
 export default agent;

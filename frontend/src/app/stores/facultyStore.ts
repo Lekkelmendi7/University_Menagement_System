@@ -5,9 +5,9 @@ import { v4 as uuid } from 'uuid';
 import { format } from 'date-fns';
 
 export default class FacultyStore {
-    facultyRegistry = new Map <string, Faculty>();
-    selectedFaculty?: Faculty | undefined= undefined; 
-    editMode= false;
+    facultyRegistry = new Map<string, Faculty>();
+    selectedFaculty?: Faculty | undefined = undefined;
+    editMode = false;
     loading = false;
     loadingInitial = false;
 
@@ -17,10 +17,10 @@ export default class FacultyStore {
 
     get faculties() {
         return Array.from(this.facultyRegistry.values());
-      }
+    }
 
-    
-      loadFaculties = async () => {
+
+    loadFaculties = async () => {
         this.loadingInitial = true;
         try {
             const faculties = await agent.Faculties.list();
@@ -123,3 +123,4 @@ export default class FacultyStore {
     }
 
 }
+

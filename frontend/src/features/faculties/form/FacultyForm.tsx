@@ -10,6 +10,9 @@ import { Faculty } from '../../../app/models/faculty';
 import * as Yup from 'yup';
 import MyTextInput from '../../../app/common/form/MyTextInput';
 import MyDateInput from '../../../app/common/form/MyDateInput';
+import MySelectInput from '../../../app/common/form/MySelectedInput';
+import { cityOptions } from '../../../app/common/options/cityOptions';
+import { zipCodeOptions } from '../../../app/common/options/zipCodeOptions';
 
 
 
@@ -29,7 +32,7 @@ export default observer(function FacultyForm() {
         city: '',
         postalCode: null,
         street: '',
-        idUniversity: '',
+        universityId: '',
     });
 
 
@@ -40,7 +43,7 @@ export default observer(function FacultyForm() {
         city: Yup.string().required('City is required to fill'),
         postalCode: Yup.string().required('Postal code is required to fill'),
         street: Yup.string().required('Street is required to fill'),
-        idUniversity: Yup.string().required('ID of University is required to fill'),
+        universityId: Yup.string().required('University ID is required to fill'),
     })
 
     useEffect(() => {
@@ -49,8 +52,8 @@ export default observer(function FacultyForm() {
 
 
     function handleFormSubmit(faculty: Faculty) {
-        if (faculty.id.length === 0) {
-            let newFaculty = {
+            if (faculty.id.length === 0) {
+                let newFaculty = {
                 ...faculty,
                 id: uuid()
             };
@@ -74,13 +77,13 @@ export default observer(function FacultyForm() {
                         <MyTextInput name='name' placeholder='Name' />
                         <MyTextInput name='email' placeholder='Email' />
                         <MyTextInput name='phoneNumber' placeholder='Phone Number' />
-                        <MyTextInput name='city' placeholder='City' />
-                        <MyTextInput name='postalCode' placeholder='Postal Code' />
+                        <MySelectInput options={cityOptions} name='city' placeholder='City' />
+                        <MySelectInput options={zipCodeOptions} name='postalCode' placeholder='Postal Code' />
                         <MyTextInput name='street' placeholder='Street' />
-                        <MyTextInput name='idUniversity' placeholder='University ID' />
+                        <MyTextInput name='universityId' placeholder='University ID' />
 
-
-                        <Button component={Link} to={`/manageFaculty/${faculty.id}`}
+                        <Button
+                            loading={loading}
                             disabled={isSubmitting || !dirty || !isValid}
                             floated='right' positive type='submit' content='Submit' />
                         <Button as={Link} to='/faculties' floated='right' type='button' content='Cancel' />

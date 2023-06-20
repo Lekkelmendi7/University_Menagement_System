@@ -9,8 +9,8 @@ namespace Domain
         public string City { get; set; }
         public int PostalCode { get; set; }
         public string Street { get; set; }
-        public Guid UniversityId {get; set;}
-        public University University {get; set;}
+        public University University { get; set; }
+        public Guid UniversityId { get; set; }
 
 
     }

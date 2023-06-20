@@ -23,12 +23,11 @@ export default observer(function FacultyList() {
                         <Item.Content>
                             <Item.Header as='a'>{faculty.name}</Item.Header>
                             <Item.Description>
-                                <div>{faculty.email}</div>
-                                <div>{faculty.phoneNumber}</div>
-                                <div>{faculty.city}</div>
-                                <div>{faculty.postalCode}</div>
-                                <div>{faculty.street}</div>
-                                <div>{faculty.idUniversity}</div>
+                                <div>Faculty email: {faculty.email}</div>
+                                <div>Faculty hone number: {faculty.phoneNumber}</div>
+                                <div>City: {faculty.city}</div>
+                                <div>Postal Code: {faculty.postalCode}</div>
+                                <div>Street: {faculty.street}</div>
                             </Item.Description>
                             <Item.Extra>
                                 <Button as={Link} to={`/faculties/${faculty.id}`} floated='right' content='View' color='blue' />

@@ -16,17 +16,7 @@ namespace Persistence
 
         public DbSet<University> Universities { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
+        public DbSet<Subject> Subjects { get; set; }
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            base.OnModelCreating(builder);
-
-            // ...
-
-            builder.Entity<Faculty>()
-            .HasOne(u => u.University)
-            .WithMany(u => u.Faculties)
-            .HasForeignKey(f => f.UniversityId);
-        }
     }
 }

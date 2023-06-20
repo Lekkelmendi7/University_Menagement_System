@@ -1,21 +1,16 @@
 using Application.Core;
-using Application.Faculties;
-using Application.Universities;
 using Domain;
 using FluentValidation;
 using MediatR;
 using Persistence;
-using System.Threading;
-using System.Threading.Tasks;
 
-
-namespace Application.Faculties
+namespace Application.Subjects
 {
     public class Create
     {
         public class Command : IRequest<Result<Unit>>
         {
-            public Faculty Faculty { get; set; }
+            public Subject Subject {get; set;}
         }
 
         public class Handler : IRequestHandler<Command, Result<Unit>>
@@ -24,25 +19,22 @@ namespace Application.Faculties
 
             public Handler(DataContext context)
             {
-                _context = context;
+                _context=context;
             }
 
             public class CommandValidator : AbstractValidator<Command>
             {
                 public CommandValidator()
                 {
-                    RuleFor(x => x.Faculty).SetValidator(new FacultyValidator());
+                    RuleFor(x=> x.Subject).SetValidator(new SubjectValidator());
                 }
             }
 
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                _context.Faculties.Add(request.Faculty);
-
-                var result = await _context.SaveChangesAsync() > 0;
-
-                if (!result) return Result<Unit>.Failure("Failed to create a faculty!");
-
+                _context.Subjects.Add(request.Subject);
+                var result= await _context.SaveChangesAsync() > 0;
+                if(!result) return Result<Unit>.Failure("Failed to create a subject");
                 return Result<Unit>.Success(Unit.Value);
             }
         }

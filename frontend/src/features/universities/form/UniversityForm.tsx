@@ -48,7 +48,7 @@ export default observer(function UniversityForm() {
                 ...university,
                 id: uuid()
             };
-            createUniversity(newUniversity).then(() => navigate(`/universities/${university.id}`))
+            createUniversity(newUniversity).then(() => navigate(`/universities/${newUniversity.id}`))
         } else {
             updateUniversity(university).then(() => navigate(`/universities/${university.id}`))
         }
@@ -75,7 +75,8 @@ export default observer(function UniversityForm() {
                         />
                         <MyTextInput name='email' placeholder='Email' />
                         <MyTextInput name='phoneNumber' placeholder='Phone Number' />
-                        <Button disabled={isSubmitting || !dirty || !isValid}
+                        <Button component={Link} to={`/manage/${university.id}`}
+                         disabled={isSubmitting || !dirty || !isValid}
                             floated='right' positive type='submit' content='Submit' />
                         <Button as={Link} to='/universities' floated='right' type='button' content='Cancel' />
                     </Form>

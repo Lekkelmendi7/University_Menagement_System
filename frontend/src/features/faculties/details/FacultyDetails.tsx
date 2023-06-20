@@ -26,6 +26,7 @@ export default observer(function FacultyDetails() {
                 <Card.Description>{faculty.city}</Card.Description>
                 <Card.Description>{faculty.postalCode}</Card.Description>
                 <Card.Description>{faculty.street}</Card.Description>
+                <Card.Description>{faculty.universityId}</Card.Description>
             </Card.Content>
             <Card.Content extra>
                 <Button.Group widths='2'>

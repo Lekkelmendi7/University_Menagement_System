@@ -12,7 +12,7 @@ using Persistence;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230613202247_InitialCreate")]
+    [Migration("20230616225348_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -128,6 +128,26 @@ namespace Persistence.Migrations
                     b.HasIndex("UniversityId");
 
                     b.ToTable("Faculties");
+                });
+
+            modelBuilder.Entity("Domain.Subject", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Category")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("ECTS")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Subjects");
                 });
 
             modelBuilder.Entity("Domain.University", b =>

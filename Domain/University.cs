@@ -7,7 +7,7 @@ namespace Domain
         public DateTime Date { get; set; }
         public string Email { get; set; }
         public string PhoneNumber { get; set; }
-        public ICollection<Faculty> Faculties { get; set; }
+        public List<Faculty> Faculties { get; set; }
 
     }
 }

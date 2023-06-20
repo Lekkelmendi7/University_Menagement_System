@@ -1,4 +1,3 @@
-import { ReactNode } from "react";
 
 export interface Faculty {
     id: string;
@@ -8,7 +7,7 @@ export interface Faculty {
     city: string;
     postalCode: number | null;
     street: string;
-    idUniversity: string;
+    universityId: string;
   }
 
 

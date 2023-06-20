@@ -23,10 +23,10 @@ export default observer(function UniversityList() {
                     <Item key={university.id}>
                         <Item.Content>
                             <Item.Header as='a'>{university.name}</Item.Header>
-                            <Item.Meta>{format(university.date!, 'dd MMM yyyy h:mm aa')}</Item.Meta>
+                            <Item.Meta>Date Opened: {format(university.date!, 'dd MMM yyyy h:mm aa')}</Item.Meta>
                             <Item.Description>
-                                <div>{university.email}</div>
-                                <div>{university.phoneNumber}</div>
+                                <div>University Email: {university.email}</div>
+                                <div>Univiersity Phone Number: {university.phoneNumber}</div>
                             </Item.Description>
                             <Item.Extra>
                                 <Button as={Link} to={`/universities/${university.id}`} floated='right' content='View' color='blue' />
