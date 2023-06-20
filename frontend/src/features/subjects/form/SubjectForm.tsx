@@ -9,6 +9,9 @@ import MyTextInput from "../../../app/common/form/MyTextInput";
 import { Link } from "react-router-dom";
 import { v4 as uuid } from 'uuid';
 import * as Yup from 'yup';
+import MySelectedInput from "../../../app/common/form/MySelectedInput";
+import { subjectCategoryOptions } from "../../../app/common/options/subjectCategoryOptions";
+import { ectsOptions } from "../../../app/common/options/ectsOptions";
 
 export default observer(function SubjectForm() {
     const { subjectStore } = useStore();
@@ -61,8 +64,8 @@ export default observer(function SubjectForm() {
                 {({ handleSubmit, isValid, isSubmitting, dirty }) => (
                     <Form className='ui form' onSubmit={handleSubmit} autoComplete='off'>
                         <MyTextInput name='name' placeholder='Name' />
-                        <MyTextInput name='category' placeholder='Category' />
-                        <MyTextInput name='ects' placeholder='ECTS' />
+                        <MySelectedInput options={subjectCategoryOptions} name='category' placeholder='Category' />
+                        <MySelectedInput options={ectsOptions} name='ects' placeholder='ECTS' />
                         <Button 
                         disabled={isSubmitting || !dirty || !isValid}
                             floated='right' positive type='submit' content='Submit' />

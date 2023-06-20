@@ -10,6 +10,7 @@ namespace Application.Core
             CreateMap<University, University>();
             CreateMap<Faculty, Faculty>();
             CreateMap<Subject, Subject>();
+            CreateMap<StudyHall, StudyHall>();
         }
     }
 }

@@ -6,6 +6,7 @@ import { User, UserFormValues } from '../models/user';
 import { Faculty } from '../models/faculty';
 import { router } from '../Routes/router';
 import { Subject } from '../models/subject';
+import { StudyHall } from '../models/studyhall';
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -95,7 +96,11 @@ const Subjects = {
     create: (subject: Subject) => axios.post<void>('/subjects', subject),
     update: (subject: Subject) => axios.put<void>(`/subjects/${subject.id}`, subject),
     delete: (id: string) => axios.delete<void>(`/subjects/${id}`)
-} 
+}
+
+const StudyHalls = {
+    list: () => requests.get<StudyHall[]>('/studyhalls');
+}
 
 const Account = {
     current: (): Promise<User> => requests.get('/account'),

@@ -17,6 +17,8 @@ export default observer(function UniversityList() {
     }
 
     return (
+        <>
+        <div style={{  fontSize: '30px',padding: '25px'}}>University</div> 
         <Segment>
             <Item.Group divided>
                 {universitiesByDate.map(university => (
@@ -44,5 +46,6 @@ export default observer(function UniversityList() {
                 ))}
             </Item.Group>
         </Segment>
+        </>
     )
 })

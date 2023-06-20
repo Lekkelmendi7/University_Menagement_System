@@ -11,6 +11,7 @@ namespace Domain
         public string Street { get; set; }
         public University University { get; set; }
         public Guid UniversityId { get; set; }
+        public List<StudyHall> Study_Halls {get; set;}
 
 
     }

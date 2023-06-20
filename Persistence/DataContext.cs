@@ -17,6 +17,7 @@ namespace Persistence
         public DbSet<University> Universities { get; set; }
         public DbSet<Faculty> Faculties { get; set; }
         public DbSet<Subject> Subjects { get; set; }
+        public DbSet<StudyHall> StudyHalls { get; set; }
 
     }
 }

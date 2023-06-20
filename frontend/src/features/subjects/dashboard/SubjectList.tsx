@@ -17,6 +17,8 @@ export default observer(function SubjectList() {
     }
 
     return (
+        <>
+        <div style={{  fontSize: '30px',padding: '25px'}}>Subjects</div> 
         <Segment>
             <Item.Group divided>
             {subjects.map((subject) => (
@@ -43,5 +45,6 @@ export default observer(function SubjectList() {
                     ))}
             </Item.Group>
         </Segment>
+        </>
     )
 })

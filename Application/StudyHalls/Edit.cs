@@ -5,20 +5,18 @@ using FluentValidation;
 using MediatR;
 using Persistence;
 
-namespace Application.Universities
+namespace Application.StudyHalls
 {
     public class Edit
     {
-        public class Command : IRequest<Result<Unit>>
+         public class Command : IRequest<Result<Unit>>
         {
-            public University University { get; set; }
+            public StudyHall Studyhall {get; set;}
         }
-
         public class CommandValidator : AbstractValidator<Command>
         {
-            public CommandValidator()
-            {
-                RuleFor(x => x.University).SetValidator(new UniversityValidator());
+            public CommandValidator(){
+                RuleFor(x => x.Studyhall).SetValidator(new StudyHallValidator());
             }
         }
 
@@ -33,13 +31,14 @@ namespace Application.Universities
 
                 _mapper = mapper;
             }
+
             public async Task<Result<Unit>> Handle(Command request, CancellationToken cancellationToken)
             {
-                var university = await _context.Universities.FindAsync(request.University.Id);
-                if (university == null) return null;
-                _mapper.Map(request.University, university);
+                var studyHall = await _context.StudyHalls.FindAsync(request.Studyhall.Id);
+                if (studyHall == null) return null;
+                _mapper.Map(request.Studyhall, studyHall);
                 var result = await _context.SaveChangesAsync() > 0;
-                if (!result) return Result<Unit>.Failure("Failed to edit the University");
+                if (!result) return Result<Unit>.Failure("Failed to edit the study hall!");
                 return Result<Unit>.Success(Unit.Value);
             }
         }
