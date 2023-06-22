@@ -15,6 +15,9 @@ import FacultyDetails from "../../features/faculties/details/FacultyDetails";
 import SubjectDashboard from "../../features/subjects/dashboard/SubjectDashboard";
 import SubjectDetails from "../../features/subjects/details/SubjectDetails";
 import SubjectForm from "../../features/subjects/form/SubjectForm";
+import StudyHallsDashboard from "../../features/studyhalls/dashboard/StudyHallsDashboard";
+import StudyHallDetails from "../../features/studyhalls/details/StudyHallDetails";
+import StudyHallForm from "../../features/studyhalls/form/StudyHallForm";
 
 
 export const routes: RouteObject[] = [
@@ -40,7 +43,11 @@ export const routes: RouteObject[] = [
             { path: 'subjects', element: <SubjectDashboard /> },
             { path: 'subjects/:id', element: <SubjectDetails /> },
             { path: 'createSubject', element: <SubjectForm key="create" /> },
-            { path: 'manageSubject/:id', element: <SubjectForm key="manage" /> }
+            { path: 'manageSubject/:id', element: <SubjectForm key="manage" /> },
+            { path: 'studyhalls', element: <StudyHallsDashboard /> },
+            { path: 'studyhalls/:id', element: <StudyHallDetails /> },
+            { path: 'createStudyHall', element: <StudyHallForm key="create" /> },
+            { path: 'manageStudyHall/:id', element: <StudyHallForm key="manage" /> }
         ]
 
     }

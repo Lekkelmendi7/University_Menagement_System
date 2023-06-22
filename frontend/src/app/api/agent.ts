@@ -6,7 +6,7 @@ import { User, UserFormValues } from '../models/user';
 import { Faculty } from '../models/faculty';
 import { router } from '../Routes/router';
 import { Subject } from '../models/subject';
-import { StudyHall } from '../models/studyhall';
+import { StudyHall } from '../models/studyhalls';
 
 const sleep = (delay: number) => {
     return new Promise((resolve) => {
@@ -99,7 +99,11 @@ const Subjects = {
 }
 
 const StudyHalls = {
-    list: () => requests.get<StudyHall[]>('/studyhalls');
+    list: () => requests.get<StudyHall[]>('/studyhalls'),
+    details: (id: string) => requests.get<StudyHall>(`/studyhalls/${id}`),
+    create: (studyHall: StudyHall) => axios.post<void>('/studyhalls', studyHall),
+    update: (studyHall: StudyHall) => axios.put<void>(`/studyhalls/${studyHall.id}`, studyHall),
+    delete: (id: string) => axios.delete<void>(`/studyhalls/${id}`)
 }
 
 const Account = {
@@ -113,7 +117,8 @@ const agent = {
     Universities,
     Account,
     Faculties,
-    Subjects
+    Subjects,
+    StudyHalls
 }
 
 export default agent;

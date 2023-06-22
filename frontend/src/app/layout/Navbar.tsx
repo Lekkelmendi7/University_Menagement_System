@@ -25,14 +25,11 @@ export default observer(function Navbar() {
         <Dropdown pointing='top left' text='Go to'  style={{width: '70px'}}>
           <DropdownMenu>
             <Dropdown.Item as={Link} to={'/universities'} text='Universities' icon='university' />
-            <Dropdown.Item as={Link} to={'/faculties'} text='Faculties' icon='building' />
+            <Dropdown.Item as={Link} to={'/faculties'} text='Faculties' icon='graduation cap' />
+            <Dropdown.Item as={Link} to={'/studyhalls'} text='Study Halls' icon='building' />
             <Dropdown.Item as={Link} to={'/subjects'} text='Subjects' icon='book' />
-            <Dropdown.Item as={Link} to={'/enrollments'} text='Enrollment' icon='' />
-            <Dropdown.Item as={Link} to={'/studyhalls'} text='Study Halls' icon='' />
-            <Dropdown.Item as={Link} to={'/activities'} text='Activities' icon='' />
-            <Dropdown.Item as={Link} to={'/exams'} text='Exams' icon='' />
-            <Dropdown.Item as={Link} to={'/grades'} text='Grades' icon='' />
-            <Dropdown.Item as={Link} to={'/contact'} text='Contact Us' icon='' />
+            <Dropdown.Item as={Link} to={'/activities'} text='Activities' icon='users' />
+            <Dropdown.Item as={Link} to={'/contact'} text='Contact Us' icon='comment' />
             <Dropdown.Item as={Link} to={'/errors'} text='Errors' icon='bug' />
           </DropdownMenu>
         </Dropdown>

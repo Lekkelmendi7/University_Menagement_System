@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
-    public class StudyHallController : BaseApiController
+    public class StudyHallsController : BaseApiController
     {
         [HttpGet]
         public async Task<ActionResult<List<StudyHall>>> GetStudyHalls()
